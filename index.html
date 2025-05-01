@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chief Sampler</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    
+    
+  </head>
+  <body>
+    <h1>Coffee</h1>
+    
+    <div class="coffeeStuff">
+    <div id="wrapper">
+    <div class="coffeeInfo">
+    </div>
+            </div>
+                </div>
+    <script>
+        
+        
+      
+        const process = (data) => { 
+            let page = $(`<div class="report"><ul></ul> </div>`);
+          
+            let num = Math.floor(Math.random() * 11);
+            num=parseInt(num);
+            let numStr = ""; 
+
+
+            $("#wrapper").append(page);
+console.log(data);
+
+data.forEach((item, index) => {
+    let coffeeInfo = `${item.title} coffee is ${item.description} and has ${item.ingredients} as ingredients. `;
+    console.log(coffeeInfo);
+    $("#wrapper").append(`<p>${coffeeInfo}</p>`);
+    
+});
+      
+        }
+        
+       const coffeeStuff = () => {
+        $.ajax({
+          type: "GET",
+          url:"https://api.sampleapis.com/coffee/iced/" ,
+          
+         
+          dataType: "json",
+          success: function (result, status, xhr) {
+            process(result);
+          },
+          error: function (xhr, status, error) {
+            alert(
+              "Result: " +
+                status +
+                " " +
+                error +
+                " " +
+                xhr.status +
+                " " +
+                xhr.statusText
+                );
+              
+          },
+        });
+      
+        
+       
+      };
+
+    $(document).ready(coffeeStuff);
+    
+    </script>
+  </body>
+</html>
